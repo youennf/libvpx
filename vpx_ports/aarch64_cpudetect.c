@@ -33,6 +33,7 @@ static int arm_get_cpu_caps(void) {
 
 // sysctlbyname() parameter documentation for instruction set characteristics:
 // https://developer.apple.com/documentation/kernel/1387446-sysctlbyname/determining_instruction_set_characteristics
+#if HAVE_NEON_DOTPROD || HAVE_NEON_I8MM
 static INLINE int64_t have_feature(const char *feature) {
   int64_t feature_present = 0;
   size_t size = sizeof(feature_present);
@@ -41,6 +42,7 @@ static INLINE int64_t have_feature(const char *feature) {
   }
   return feature_present;
 }
+#endif
 
 static int arm_get_cpu_caps(void) {
   int flags = 0;
